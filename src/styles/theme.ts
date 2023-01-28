@@ -1,5 +1,9 @@
 import { Theme } from '@emotion/react'
 
 export const lightTheme: Theme = {
-    white: 'whitespace',
+    bgColor: 'whitespace',
+}
+
+export const darkTheme: Theme = {
+    bgColor: 'black',
 }

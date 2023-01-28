@@ -1,11 +1,14 @@
 import Router from 'Router'
 import { ThemeProvider } from '@emotion/react'
-import { lightTheme } from 'styles/theme'
+import { lightTheme, darkTheme } from 'styles/theme'
 import GlobalStyle from 'styles/GlobalStyle'
+import { useRecoilValue } from 'recoil'
+import { themeModeAtom } from 'stores/atoms'
 
 function App() {
+    const isDarkMode = useRecoilValue(themeModeAtom)
     return (
-        <ThemeProvider theme={lightTheme}>
+        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
             <GlobalStyle />
             <Router />
         </ThemeProvider>
