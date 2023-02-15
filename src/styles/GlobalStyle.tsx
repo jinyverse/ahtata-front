@@ -1,4 +1,4 @@
-import { Global, css } from '@emotion/react'
+import { Global, css } from '@emotion/react';
 
 // 참조 자료 https://byby.dev/normalize-css
 const normalizedStyle = css`
@@ -356,10 +356,10 @@ const normalizedStyle = css`
 
     /* Custom styles
    ========================================================================== */
-`
+`;
 
 const GlobalStyle = () => {
-    return <Global styles={normalizedStyle} />
-}
+    return <Global styles={normalizedStyle} />;
+};
 
-export default GlobalStyle
+export default GlobalStyle;
