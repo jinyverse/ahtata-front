@@ -1,9 +1,9 @@
-import { Theme } from '@emotion/react';
+import { DefaultTheme } from 'styled-components';
 
-export const lightTheme: Theme = {
+export const lightTheme: DefaultTheme = {
     bgColor: 'whitespace',
 };
 
-export const darkTheme: Theme = {
-    bgColor: 'black',
+export const darkTheme: DefaultTheme = {
+    bgColor: '#b8c8df',
 };
