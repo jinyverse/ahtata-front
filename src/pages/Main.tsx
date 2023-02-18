@@ -1,7 +1,11 @@
 import Layout from 'components/common/Layout';
 
-function Main() {
-    return <Layout>{}</Layout>;
+interface IMainProps {
+    children: React.ReactNode;
+}
+
+function Main({ children }: IMainProps) {
+    return <Layout>{children}</Layout>;
 }
 
 export default Main;

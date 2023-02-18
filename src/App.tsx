@@ -1,5 +1,5 @@
 import Router from 'Router';
-import { ThemeProvider } from '@emotion/react';
+import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from 'styles/theme';
 import GlobalStyle from 'styles/GlobalStyle';
 import { useRecoilValue } from 'recoil';
