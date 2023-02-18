@@ -2,6 +2,12 @@ import 'styled-components';
 
 declare module 'styled-components' {
     export interface DefaultTheme {
-        bgColor: string;
+        background: {
+            normal: string;
+            primary: string;
+        };
+        fontColor: {
+            normal: string;
+        };
     }
 }
