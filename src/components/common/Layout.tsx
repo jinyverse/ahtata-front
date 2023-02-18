@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { IChildrenProps } from '#types/common.type';
+import { ILayoutProps } from '#types/common.type';
+import Nav from './Nav';
 
 const Container = styled.div`
     position: relative;
@@ -18,10 +19,13 @@ const Wrapper = styled.div`
     background-color: whitesmoke;
 `;
 
-function Layout({ children }: IChildrenProps) {
+function Layout({ children }: ILayoutProps) {
     return (
         <Container>
-            <Wrapper>{children}</Wrapper>
+            <Wrapper>
+                {children}
+                <Nav />
+            </Wrapper>
         </Container>
     );
 }
