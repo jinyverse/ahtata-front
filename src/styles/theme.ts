@@ -1,9 +1,21 @@
 import { DefaultTheme } from 'styled-components';
 
 export const lightTheme: DefaultTheme = {
-    bgColor: 'whitespace',
+    background: {
+        normal: 'whitesmoke',
+        primary: '#000000',
+    },
+    fontColor: {
+        normal: '#ffffff',
+    },
 };
 
 export const darkTheme: DefaultTheme = {
-    bgColor: '#b8c8df',
+    background: {
+        normal: '#0E0328',
+        primary: '#000000',
+    },
+    fontColor: {
+        normal: '#ffffff',
+    },
 };
