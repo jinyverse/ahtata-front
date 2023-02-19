@@ -1,15 +1,27 @@
 import { DefaultTheme } from 'styled-components';
 
 export const lightTheme: DefaultTheme = {
-    bgColor: 'whitespace',
-    buttonColorBlue: '#3454ff',
-    buttonColorWhite: '#ffffff',
-    buttonColorNavy: '#1A0952',
+    background: {
+        normal: 'whitesmoke',
+        primary: '#000000',
+    },
+    fontColor: {
+        normal: '#ffffff',
+    },
+    buttonColor: {
+        primary: '#3454ff',
+    },
 };
 
 export const darkTheme: DefaultTheme = {
-    bgColor: '#b8c8df',
-    buttonColorBlue: '#3454ff',
-    buttonColorWhite: '#ffffff',
-    buttonColorNavy: '#1A0952',
+    background: {
+        normal: '#0E0328',
+        primary: '#000000',
+    },
+    fontColor: {
+        normal: '#ffffff',
+    },
+    buttonColor: {
+        primary: '#3454ff',
+    },
 };

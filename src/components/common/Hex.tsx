@@ -14,7 +14,7 @@ const Hexagon = styled.div`
     width: 10em;
     height: 17.32em;
     border-radius: 1em/0.5em;
-    background-color: ${({ theme }) => theme.buttonColorNavy};
+    background-color: ${({ theme }) => theme.buttonColor.primary};
     transition: opacity 0.5s;
     transform: rotate(90deg);
 
@@ -46,7 +46,7 @@ const InnerHexagon = styled.div`
     width: 9em;
     height: 15.32em;
     border-radius: 1em/0.5em;
-    background-color: ${({ theme }) => theme.buttonColorWhite};
+    background-color: '#ffffff';
     transition: opacity 0.5s;
     transform: rotate(90deg);
 

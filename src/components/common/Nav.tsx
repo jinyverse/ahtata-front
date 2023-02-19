@@ -17,7 +17,6 @@ const Container = styled.div`
 const Wrapper = styled.div`
     width: 375px;
     height: 100%;
-
     background: rgba(0, 0, 0, 0.2);
     background-blend-mode: overlay;
     box-shadow: 0px -5px 30px rgba(41, 39, 130, 0.1),
@@ -59,19 +58,19 @@ function Nav() {
             <Wrapper>
                 <IconWrapper>
                     <Icon>
-                        <FaHome size="100%" />
+                        <FaHome size="100%" color="white" />
                     </Icon>
                     <Icon>
-                        <FaAward size="100%" />
+                        <FaAward size="100%" color="white" />
                     </Icon>
                     <Circle>
-                        <GoPlus size="50%" />
+                        <GoPlus size="50%" color="white" />
                     </Circle>
                     <Icon>
-                        <FaSearch size="100%" />
+                        <FaSearch size="100%" color="white" />
                     </Icon>
                     <Icon>
-                        <FaUserAlt size="100%" />
+                        <FaUserAlt size="100%" color="white" />
                     </Icon>
                 </IconWrapper>
             </Wrapper>
