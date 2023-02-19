@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { FaHome, FaSearch, FaAward, FaUserAlt } from 'react-icons/fa';
 import { GoPlus } from 'react-icons/go';
+import Hex from './Hex';
 
 const Container = styled.div`
     position: fixed;
