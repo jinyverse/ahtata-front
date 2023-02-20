@@ -1,27 +1,49 @@
 import { DefaultTheme } from 'styled-components';
 
-export const lightTheme: DefaultTheme = {
-    background: {
-        normal: 'whitesmoke',
-        primary: '#000000',
+const fonts = {
+    family: {
+        spoqaHanSans: `'Noto Sans KR', sans-serif`,
+        esamanru: `'Merriweather', serif`,
     },
-    fontColor: {
-        normal: '#ffffff',
+    size: {
+        h0: '32px',
+        h1: '24px',
+        h2: '20px',
+        h3: '18px',
+        body1: '16px',
+        body2: '14px',
+        body3: '12px',
     },
-    buttonColor: {
-        primary: '#3454ff',
+    weight: {
+        light: 100,
+        regular: 400,
+        Medium: 700,
     },
 };
 
-export const darkTheme: DefaultTheme = {
+const colors = {
     background: {
-        normal: '#0E0328',
-        primary: '#000000',
+        backgroundColor: '#211134',
     },
-    fontColor: {
-        normal: '#ffffff',
+    button: {
+        Main: '#3150FE',
     },
-    buttonColor: {
-        primary: '#3454ff',
+    font: {
+        palePuple: '#452A7C',
+        gray1: '#C1C1C1',
+        white: '#FFFFFF',
     },
+};
+
+const defalutTheme = {
+    ...fonts,
+    ...colors,
+};
+
+export const lightTheme: DefaultTheme = {
+    ...defalutTheme,
+};
+
+export const darkTheme: DefaultTheme = {
+    ...defalutTheme,
 };

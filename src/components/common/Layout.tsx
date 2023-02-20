@@ -19,7 +19,7 @@ const Wrapper = styled.div`
     margin: 0px auto;
     padding: 0;
     vertical-align: baseline;
-    background-color: ${({ theme }) => theme.background.normal};
+    background-color: ${({ theme }) => theme.background.backgroundColor};
 `;
 
 function Layout({ children }: ILayoutProps) {

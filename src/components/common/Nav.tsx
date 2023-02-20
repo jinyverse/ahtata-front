@@ -1,6 +1,9 @@
 import styled from 'styled-components';
-import { FaHome, FaSearch, FaAward, FaUserAlt } from 'react-icons/fa';
 import { GoPlus } from 'react-icons/go';
+import Home2 from 'assets/img/home2.svg';
+import Variant8 from 'assets/img/Variant8.svg';
+import MusicSquareSearch from 'assets/img/musicsquaresearch.svg';
+import UseRoctagon from 'assets/img/useroctagon.svg';
 import Hex from './Hex';
 
 const Container = styled.div`
@@ -58,19 +61,20 @@ function Nav() {
             <Wrapper>
                 <IconWrapper>
                     <Icon>
-                        <FaHome size="100%" color="white" />
+                        <img src={Home2} alt="" />
                     </Icon>
                     <Icon>
-                        <FaAward size="100%" color="white" />
+                        <img src={Variant8} alt="" />
                     </Icon>
                     <Circle>
                         <GoPlus size="50%" color="white" />
+                        {/* <Hex></Hex> */}
                     </Circle>
                     <Icon>
-                        <FaSearch size="100%" color="white" />
+                        <img src={MusicSquareSearch} alt="" />
                     </Icon>
                     <Icon>
-                        <FaUserAlt size="100%" color="white" />
+                        <img src={UseRoctagon} alt="" />
                     </Icon>
                 </IconWrapper>
             </Wrapper>
