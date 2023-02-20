@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { FaHome, FaSearch, FaAward, FaUserAlt } from 'react-icons/fa';
+import { GoPlus } from 'react-icons/go';
+import Hex from './Hex';
 
 const Container = styled.div`
     position: fixed;
@@ -20,13 +23,57 @@ const Wrapper = styled.div`
         inset 0px 1px 0.5px rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(40px);
     /* Note: backdrop-filter has minimal browser support */
+
     border-radius: 50px 50px 0px 0px;
+`;
+const IconWrapper = styled.div`
+    margin: 5% 5% 20% 5%;
+    width: 90%;
+    height: 40%;
+    /* background-color: #ffffff9b; */
+    display: flex;
+    justify-content: space-around;
+`;
+
+const Icon = styled.div`
+    /* background-color: white; */
+    width: 35px;
+    height: 35px;
+`;
+const Circle = styled.div`
+    position: relative;
+    top: -60px;
+    width: 80px;
+    height: 80px;
+    background: #ffffff9b;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 function Nav() {
     return (
         <Container>
-            <Wrapper></Wrapper>
+            <Wrapper>
+                <IconWrapper>
+                    <Icon>
+                        <FaHome size="100%" color="white" />
+                    </Icon>
+                    <Icon>
+                        <FaAward size="100%" color="white" />
+                    </Icon>
+                    <Circle>
+                        <GoPlus size="50%" color="white" />
+                    </Circle>
+                    <Icon>
+                        <FaSearch size="100%" color="white" />
+                    </Icon>
+                    <Icon>
+                        <FaUserAlt size="100%" color="white" />
+                    </Icon>
+                </IconWrapper>
+            </Wrapper>
         </Container>
     );
 }

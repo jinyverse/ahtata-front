@@ -8,6 +8,9 @@ export const lightTheme: DefaultTheme = {
     fontColor: {
         normal: '#ffffff',
     },
+    buttonColor: {
+        primary: '#3454ff',
+    },
 };
 
 export const darkTheme: DefaultTheme = {
@@ -17,5 +20,8 @@ export const darkTheme: DefaultTheme = {
     },
     fontColor: {
         normal: '#ffffff',
+    },
+    buttonColor: {
+        primary: '#3454ff',
     },
 };

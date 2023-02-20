@@ -9,5 +9,8 @@ declare module 'styled-components' {
         fontColor: {
             normal: string;
         };
+        buttonColor: {
+            primary: string;
+        };
     }
 }
