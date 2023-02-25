@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Layout from 'components/common/Layout';
 import { NormalButton } from 'components/common/Button';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     width: 90%;
@@ -12,7 +13,11 @@ function Main() {
     return (
         <Layout>
             <Container>
-                <NormalButton>응원 메세지 보내기</NormalButton>
+                <Link to="/game">
+                    <NormalButton>
+                        테스트용 게임 플레이 페이지 이동
+                    </NormalButton>
+                </Link>
             </Container>
         </Layout>
     );

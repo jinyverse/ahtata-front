@@ -3,6 +3,7 @@ import Main from 'pages/Main';
 import Artists from 'pages/Artists';
 import Ranking from 'pages/Ranking';
 import CardBook from 'pages/CardBook';
+import GamePage from 'pages/Game';
 
 function Router() {
     return (
@@ -12,6 +13,8 @@ function Router() {
                 <Route path="/ranking" element={<Ranking />} />
                 <Route path="/artists" element={<Artists />} />
                 <Route path="/card-book" element={<CardBook />} />
+                {/* 임시 개발용 url */}
+                <Route path="/game" element={<GamePage />} />
             </Routes>
         </BrowserRouter>
     );
