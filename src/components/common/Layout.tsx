@@ -22,12 +22,12 @@ const Wrapper = styled.div`
     background-color: ${({ theme }) => theme.background.backgroundColor};
 `;
 
-function Layout({ children }: ILayoutProps) {
+function Layout({ children, hasNotNav }: ILayoutProps) {
     return (
         <Container>
             <Wrapper>
                 {children}
-                <Nav />
+                {!hasNotNav && <Nav />}
             </Wrapper>
         </Container>
     );
