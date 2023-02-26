@@ -4,6 +4,7 @@ import Home2 from 'assets/img/home2.svg';
 import Variant8 from 'assets/img/Variant8.svg';
 import MusicSquareSearch from 'assets/img/musicsquaresearch.svg';
 import UseRoctagon from 'assets/img/useroctagon.svg';
+import { Link } from 'react-router-dom';
 import Hex from './Hex';
 
 const Container = styled.div`
@@ -26,7 +27,6 @@ const Wrapper = styled.div`
         inset 0px 1px 0.5px rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(40px);
     /* Note: backdrop-filter has minimal browser support */
-
     border-radius: 50px 50px 0px 0px;
 `;
 const IconWrapper = styled.div`
@@ -60,22 +60,30 @@ function Nav() {
         <Container>
             <Wrapper>
                 <IconWrapper>
-                    <Icon>
-                        <img src={Home2} alt="" />
-                    </Icon>
-                    <Icon>
-                        <img src={Variant8} alt="" />
-                    </Icon>
+                    <Link to="/">
+                        <Icon>
+                            <img src={Home2} alt="" />
+                        </Icon>
+                    </Link>
+                    <Link to="/ranking">
+                        <Icon>
+                            <img src={Variant8} alt="" />
+                        </Icon>
+                    </Link>
                     <Circle>
                         <GoPlus size="50%" color="white" />
                         {/* <Hex></Hex> */}
                     </Circle>
-                    <Icon>
-                        <img src={MusicSquareSearch} alt="" />
-                    </Icon>
-                    <Icon>
-                        <img src={UseRoctagon} alt="" />
-                    </Icon>
+                    <Link to="/card-book">
+                        <Icon>
+                            <img src={MusicSquareSearch} alt="" />
+                        </Icon>
+                    </Link>
+                    <Link to="/artists">
+                        <Icon>
+                            <img src={UseRoctagon} alt="" />
+                        </Icon>
+                    </Link>
                 </IconWrapper>
             </Wrapper>
         </Container>
