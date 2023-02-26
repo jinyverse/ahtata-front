@@ -5,16 +5,25 @@ import { IDragabbleCardProps } from 'types/dnd.type';
 
 const Card = styled.div`
     color: black;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 200px;
     box-sizing: border-box;
     background-color: yellow;
     margin: 5px;
 `;
 
-export function DragabbleCard({ item, index }: IDragabbleCardProps) {
+export function DragabbleCard({
+    item,
+    index,
+    isTimelineCard,
+}: IDragabbleCardProps) {
     return (
-        <Draggable draggableId={item} index={index} key={item}>
+        <Draggable
+            draggableId={item}
+            index={index}
+            key={item}
+            isDragDisabled={isTimelineCard}
+        >
             {provided => (
                 <Card
                     ref={provided.innerRef}
