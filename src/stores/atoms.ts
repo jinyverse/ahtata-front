@@ -15,10 +15,15 @@ export const userInfo = atom({
     },
 });
 
+interface IUserState {
+    isLoggedIn: boolean;
+    isPlayMode: boolean;
+}
+
 export const userState = atom({
     key: 'userState',
     default: {
         isLoggedIn: false,
         isPlayMode: false,
-    },
+    } as IUserState,
 });

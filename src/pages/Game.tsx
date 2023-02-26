@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Layout from 'components/common/Layout';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userState } from 'stores/atoms';
 import { playStatusAtom } from 'stores/gameDataAtom';
 import { DroppableBoard } from 'components/dnd';
 import DragabbleCard from 'components/dnd/DragabbleCard';
+import { useNavigate } from 'react-router-dom';
 
 const appearAnimation = keyframes`
     from {
@@ -54,7 +57,10 @@ const GivenCardWrapper = styled.div`
 `;
 
 function GamePage() {
+    const navigate = useNavigate();
+    const status = useRecoilValue(userState);
     const [playStatus, setPlayStatus] = useRecoilState(playStatusAtom);
+
     // 드래그 & 드랍 이벤트 핸들러
     const onDragEnd = (info: DropResult) => {
         // destination: 카드를 놓는 위치, source: 카드를 집었던 위치
@@ -99,6 +105,45 @@ function GamePage() {
         // 2-2. 틀린 경우: 카드 배치 실패 이펙트, 게임 오버 화면 이동
         // 3. 게임 관련 상태 업데이트(새로 주어진 카드 recoil 등록 or 게임 오버 상태 변환)
     };
+
+    useEffect(() => {
+        // 새로고침 후 뒤로가기를 하면 동작하지 않음.
+        const preventGoBack = () => {
+            if (confirm('페이지를 나가시겠습니까?')) {
+                history.go(-1);
+            } else {
+                history.pushState(null, '', location.href);
+            }
+        };
+        history.pushState(null, '', location.href);
+        window.addEventListener('popstate', preventGoBack);
+
+        return () => window.removeEventListener('popstate', preventGoBack);
+    }, []);
+
+    // 새로고침 막기 변수
+    const preventClose = (e: BeforeUnloadEvent) => {
+        e.preventDefault();
+        e.returnValue = ''; // chrome에서는 설정이 필요해서 넣은 코드
+    };
+
+    // 브라우저에 렌더링 시 한 번만 실행하는 코드
+    useEffect(() => {
+        (() => {
+            window.addEventListener('beforeunload', preventClose);
+        })();
+
+        return () => {
+            window.removeEventListener('beforeunload', preventClose);
+        };
+    }, []);
+
+    useEffect(() => {
+        // url을 타고 들어온 경우 방지
+        if (status.isPlayMode === false) {
+            navigate('/');
+        }
+    }, []);
 
     return (
         <Layout hasNotNav={true}>
