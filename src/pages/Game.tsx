@@ -106,43 +106,41 @@ function GamePage() {
         // 3. 게임 관련 상태 업데이트(새로 주어진 카드 recoil 등록 or 게임 오버 상태 변환)
     };
 
-    useEffect(() => {
-        // 새로고침 후 뒤로가기를 하면 동작하지 않음.
-        const preventGoBack = () => {
-            if (confirm('페이지를 나가시겠습니까?')) {
-                history.go(-1);
-            } else {
-                history.pushState(null, '', location.href);
-            }
-        };
-        history.pushState(null, '', location.href);
-        window.addEventListener('popstate', preventGoBack);
-
-        return () => window.removeEventListener('popstate', preventGoBack);
-    }, []);
-
     // 새로고침 막기 변수
     const preventClose = (e: BeforeUnloadEvent) => {
         e.preventDefault();
         e.returnValue = ''; // chrome에서는 설정이 필요해서 넣은 코드
     };
 
-    // 브라우저에 렌더링 시 한 번만 실행하는 코드
-    useEffect(() => {
-        (() => {
-            window.addEventListener('beforeunload', preventClose);
-        })();
+    const preventGoBack = () => {
+        if (
+            confirm(
+                '변경사항이 저장되지 않을 수 있습니다. 뒤로가기를 실행하시겠습니까?',
+            )
+        ) {
+            history.go(-1);
+        } else {
+            history.pushState(null, '', location.href);
+        }
+    };
 
-        return () => {
-            window.removeEventListener('beforeunload', preventClose);
-        };
+    // 뒤로가기 시 재확인
+    useEffect(() => {
+        // 새로고침 후 뒤로가기를 하면 동작하지 않음.
+        history.pushState(null, '', location.href);
+        window.addEventListener('popstate', preventGoBack);
+        return () => window.removeEventListener('popstate', preventGoBack);
     }, []);
 
+    // 새로고침 시 재확인
     useEffect(() => {
-        // url을 타고 들어온 경우 방지
-        if (status.isPlayMode === false) {
-            navigate('/');
-        }
+        window.addEventListener('beforeunload', preventClose);
+        return () => window.removeEventListener('beforeunload', preventClose);
+    }, []);
+
+    // url을 타고 들어온 경우 방지
+    useEffect(() => {
+        if (status.isPlayMode === false) navigate('/');
     }, []);
 
     return (
