@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IDroppableBoardProps } from 'types/dnd.type';
+import { IDroppableBoardProps } from '@/types/dnd.type';
 
 const Board = styled.div`
     display: flex;

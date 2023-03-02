@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
-import { IDragabbleCardProps } from 'types/dnd.type';
+import { IDragabbleCardProps } from '@/types/dnd.type';
 
 const Card = styled.div`
     color: black;

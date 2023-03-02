@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import Layout from 'components/common/Layout';
-import { NormalButton } from 'components/common/Button';
 import { Link } from 'react-router-dom';
-import { userState } from 'stores/atoms';
 import { useRecoilState } from 'recoil';
+import { userState } from '@/stores/atoms';
+import Layout from '@/components/common/Layout';
+import { NormalButton } from '@/components/common/Button';
 
 const Container = styled.div`
     width: 90%;

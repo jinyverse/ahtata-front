@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { ILayoutProps } from 'types/common.type';
-import Nav from 'components/common/Nav';
+import { ILayoutProps } from '@/types/common.type';
+import Nav from '@/components/common/Nav';
 
 const Container = styled.div`
     position: relative;
