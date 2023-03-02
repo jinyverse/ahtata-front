@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import Layout from 'components/common/Layout';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState } from 'stores/atoms';
-import { playStatusAtom } from 'stores/gameDataAtom';
-import { DroppableBoard } from 'components/dnd';
-import DragabbleCard from 'components/dnd/DragabbleCard';
-import { useNavigate } from 'react-router-dom';
+import { userState } from '@/stores/atoms';
+import { playStatusAtom } from '@/stores/gameDataAtom';
+import Layout from '@/components/common/Layout';
+import { DroppableBoard } from '@/components/dnd';
+import DragabbleCard from '@/components/dnd/DragabbleCard';
 
 const appearAnimation = keyframes`
     from {

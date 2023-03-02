@@ -1,4 +1,4 @@
-import Layout from 'components/common/Layout';
+import Layout from '@/components/common/Layout';
 
 // 아티스트 페이지
 function Artists() {
