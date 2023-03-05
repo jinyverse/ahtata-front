@@ -17,13 +17,13 @@ export const userInfo = atom({
 
 interface IUserState {
     isLoggedIn: boolean;
-    isPlayMode: boolean;
+    isGameMode: boolean;
 }
 
 export const userState = atom({
     key: 'userState',
     default: {
         isLoggedIn: false,
-        isPlayMode: false,
+        isGameMode: false,
     } as IUserState,
 });
