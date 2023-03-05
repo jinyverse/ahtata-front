@@ -6,6 +6,8 @@ import { userState } from '@/stores/userAtoms';
 import Layout from '@/components/common/Layout';
 import { NormalButton } from '@/components/common/Button';
 import Loading from '@/components/common/Loading';
+import Timer from '@/components/common/Timer';
+import Hex from '@/components/common/Hex';
 
 const Container = styled.div`
     width: 90%;
@@ -38,6 +40,8 @@ function Main() {
                         테스트용 게임 플레이 페이지 이동
                     </NormalButton>
                 </Link>
+                <Timer></Timer>
+                <Hex></Hex>
             </Container>
         </Layout>
     );
