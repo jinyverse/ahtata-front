@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 const HexagonContainer = styled.div`
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; */
 `;
 
 const Hexagon = styled.div`
