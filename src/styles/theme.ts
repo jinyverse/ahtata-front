@@ -27,6 +27,7 @@ const colors = {
     },
     button: {
         Main: '#3150FE',
+        white: '#FFFFFF',
     },
     font: {
         palePuple: '#452A7C',
@@ -34,10 +35,19 @@ const colors = {
         white: '#FFFFFF',
     },
 };
+const Hexsize = {
+    Hexsize: {
+        size5: '5em',
+        size10: '10em',
+        size15: '15em',
+        size20: '20em',
+    },
+};
 
 const defalutTheme = {
     ...fonts,
     ...colors,
+    ...Hexsize,
 };
 
 export const lightTheme: DefaultTheme = {

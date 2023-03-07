@@ -25,11 +25,18 @@ declare module 'styled-components' {
         };
         button: {
             Main: string;
+            white: string;
         };
         font: {
             palePuple: string;
             gray1: string;
             white: string;
+        };
+        Hexsize: {
+            size5: string;
+            size10: string;
+            size15: string;
+            size20: string;
         };
     }
 }

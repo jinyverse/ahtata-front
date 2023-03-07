@@ -4,6 +4,16 @@ import styled, { css } from 'styled-components';
 interface ProgressBarProps {
     width: number;
 }
+interface TimerProps {
+    timeLeft: string;
+}
+
+const DivWrapper = styled.div<TimerProps>`
+    width: 100%;
+    height: 20px;
+    border-radius: 5px;
+    margin: 10px 0;
+`;
 
 const ProgressBarWrapper = styled.div`
     width: 100%;
@@ -24,12 +34,12 @@ const TimeCount = styled.div`
     color: white;
 `;
 
-function Timer() {
-    const [timeLeft, setTimeLeft] = useState(10);
+function Timer({ timeLeft }: { timeLeft: number }) {
+    const [currentTimeLeft, setCurrentTimeLeft] = useState(timeLeft);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setTimeLeft(prevTimeLeft => {
+            setCurrentTimeLeft(prevTimeLeft => {
                 const nextTimeLeft = prevTimeLeft - 1;
                 return nextTimeLeft < 0 ? 0 : nextTimeLeft; // timeLeft가 음수가 되지 않도록 보호합니다.
             });
@@ -43,9 +53,9 @@ function Timer() {
     return (
         <div>
             <ProgressBarWrapper>
-                <ProgressBar width={timeLeft * 10} />
+                <ProgressBar width={currentTimeLeft * 10} />
             </ProgressBarWrapper>
-            <TimeCount>{timeLeft}</TimeCount>
+            <TimeCount>{currentTimeLeft}</TimeCount>
         </div>
     );
 }
