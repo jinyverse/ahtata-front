@@ -3,8 +3,9 @@ import { ICardData, IPlayStatus } from '@/types/game.type';
 
 // 플레이 중인 유저 화면 데이터
 export const playStatusAtom = atom<IPlayStatus>({
-    key: 'playStaus',
+    key: 'playStatus',
     default: {
+        status: 'init',
         artist: null,
         timeline: [],
         given: [],

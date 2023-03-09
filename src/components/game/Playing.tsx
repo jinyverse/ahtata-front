@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useRecoilState } from 'recoil';
@@ -7,6 +7,7 @@ import { DroppableBoard } from '@/components/dnd';
 import DragabbleCard from '@/components/dnd/DragabbleCard';
 import { useNavigate } from 'react-router-dom';
 import { ICardData, IPlayStatus } from '@/types/game.type';
+import Timer from '@/components/common/Timer';
 
 const appearAnimation = keyframes`
     from {
@@ -56,21 +57,22 @@ const GivenCardWrapper = styled.div`
 `;
 
 const deckDataFromServer = [
-    { name: '첫번째', date: '2023-01-01' },
-    { name: '두번째', date: '2023-01-02' },
-    { name: '세번쨰', date: '2023-01-03' },
-    { name: '네번째', date: '2023-01-04' },
-    { name: '다섯번째', date: '2023-01-05' },
-    { name: '여섯번째', date: '2023-01-06' },
-    { name: '일곱번째', date: '2023-01-07' },
-    { name: '여덟번째', date: '2023-01-08' },
-    { name: '아홈번째', date: '2023-01-09' },
-    { name: '열번째', date: '2023-01-10' },
-    { name: '열한번째', date: '2023-01-11' },
+    { name: '첫번째', date: 1 },
+    { name: '두번째', date: 2 },
+    { name: '세번쨰', date: 3 },
+    { name: '네번째', date: 4 },
+    { name: '다섯번째', date: 5 },
+    { name: '여섯번째', date: 6 },
+    { name: '일곱번째', date: 7 },
+    { name: '여덟번째', date: 8 },
+    { name: '아홈번째', date: 9 },
+    { name: '열번째', date: 10 },
+    { name: '열한번째', date: 11 },
 ];
 
 export function Playing() {
     const navigate = useNavigate();
+    const [timeLeft, setTimeLeft] = useState(10);
     const [playStatus, setPlayStatus] = useRecoilState(playStatusAtom);
     const [deck, setDeck] = useRecoilState(gameDeckAtom);
     const { artist } = playStatus;
@@ -85,8 +87,9 @@ export function Playing() {
         initializeGameState();
     }, []);
 
+    // 게임 상태 초기화
     const initializeGameState = async () => {
-        // 선택된 아티스트 게임 플레이 덱 요청 후 세팅
+        // 선택된 아티스트 덱 요청 후 반환 데이터 저장
         const deckData = await reqGameDeck();
 
         setDeck(deckData);
@@ -134,49 +137,46 @@ export function Playing() {
         const destinationId = destination?.droppableId;
         const sourceId = source.droppableId;
 
+        // 이미 배치된 카드 드래그 방지
+        if (sourceId === 'timeline') return;
+
         // 배치 불가능한 영역으로 drop한 경우
         if (!destination) return;
-
-        // 이미 배치된 카드 드래그의 이벤트 방지
-        if (sourceId === 'timeline') return;
 
         // 원래 있던 영역으로 드랍한 경우
         if (destinationId === sourceId) return;
 
         // 주어진 카드를 타임라인 배치 영역으로 drop한 경우
         if (destinationId === 'timeline' && sourceId === 'given') {
-            setPlayStatus(allCardLists => {
-                // given 영역 카드
-                const sourceCardList = [...allCardLists.given];
-                // timeline 영역 카드
-                const destinationCardList = [...allCardLists.timeline];
-                // waiting list 영역 카드
-                const waitingCardList = [...allCardLists.waitingList];
+            // given 영역 카드
+            const sourceCardList = [...playStatus.given];
+            // timeline 영역 카드
+            const destinationCardList = [...playStatus.timeline];
+            // waiting list 영역 카드
+            const waitingCardList = [...playStatus.waitingList];
+            // given 영역에서 드래깅된 카드 추출
+            const draggingCard = sourceCardList.splice(source.index, 1)[0];
+            // timeline 영역 중 드래깅 카드가 드랍된 지점으로 카드 삽입
+            destinationCardList.splice(destination?.index, 0, draggingCard);
 
-                // given 영역에서 드래깅된 카드 추출
-                const draggingCard = sourceCardList.splice(source.index, 1)[0];
-                // timeline 영역 중 드래깅 카드가 드랍된 지점으로 카드 삽입
-                destinationCardList.splice(destination?.index, 0, draggingCard);
+            // waiting list에서 다음 문제 카드가 없을 경우
+            if (waitingCardList.length !== 0) {
+                const newGiven = waitingCardList.splice(0, 1)[0];
+                sourceCardList.splice(0, 0, newGiven);
+            }
 
-                // waiting list에서 다음 문제 카드가 없을 경우
-                if (waitingCardList.length !== 0) {
-                    const newGiven = waitingCardList.splice(0, 1)[0];
-                    sourceCardList.splice(0, 0, newGiven);
-                }
+            const newPlayStatus = {
+                ...playStatus,
+                given: sourceCardList,
+                timeline: destinationCardList,
+                waitingList: waitingCardList,
+            };
 
-                const newPlayStatus = {
-                    ...allCardLists,
-                    given: sourceCardList,
-                    timeline: destinationCardList,
-                    waitingList: waitingCardList,
-                };
+            setPlayStatus(newPlayStatus);
 
-                return newPlayStatus;
-            });
+            // 드랍 후 카드 배치 정답을 확인하는 함수
+            validateCardPosition(newPlayStatus, draggingCard);
         }
-
-        // 드랍 후 카드 배치 정답을 확인하는 함수
-        // validateCardPosition(newPlayStatus);
     };
 
     // 카드 드랍 시 실행 됨
@@ -185,27 +185,58 @@ export function Playing() {
         if (playStatus.timeline.length < 2) return;
 
         // 카드 배치가 올바른지 판별
-        validateCardPosition();
-        console.log(playStatus.waitingList.length);
+        // const isValidate = validateCardPosition();
+
+        // 올바르지 않을 경우
+        // if (!isValidate) {
+        //     setGameEnd('incorrect');
+        // }
+
+        // 올바른 경우
+        // waiting list 카드 첫번째 1장 -> given
     }, [playStatus.timeline]);
 
     // 드랍 후 카드 배치 정답을 확인하는 함수
-    const validateCardPosition = () => {
-        console.log('validate card after drop event', playStatus.timeline);
-        const isValidate = true;
+    const validateCardPosition = (
+        newPlayStatus: IPlayStatus,
+        draggingCard: ICardData,
+    ) => {
+        const nowTimeline = playStatus.timeline;
+        const nowCard = draggingCard.name;
 
-        if (!isValidate) {
-            console.log('게임 오버');
-        }
+        console.log('드래깅카드', draggingCard);
+        nowTimeline.forEach((item, index) => {
+            console.log(index);
+        });
+
+        // 1. 방금 배치한 카드 찾기: newPlayStatus draggingCard찾기
+        // newPlayStatus.timeline.filter((item) => item.name === nowCard);
+        newPlayStatus;
+        // 2. 배치 카드 앞, 뒤 카드의 날짜 찾기
+        // 3. 배치한 카드가 적당한 위치인지 판별하기
+
+        // const sortedTimeline = [...nowTimeline].sort((a, b) => a - b);
+        // console.log(nowTimeline, sortedTimeline);
+
+        const isValidate = true;
 
         // 2-1. 올바른 경우: 카드 배치 성공 이펙트, 다음 카드 불러오기
         // 2-2. 틀린 경우: 카드 배치 실패 이펙트, 게임 오버 화면 이동
         // 3. 게임 관련 상태 업데이트(새로 주어진 카드 recoil 등록 or 게임 오버 상태 변환)
+        return isValidate;
+    };
+
+    const setGameEnd = (type: string) => {
+        console.log('game over');
+        // type === "timeout": 타이머 모두 경과 시
+        // type === "incorrect": 카드 배치를 틀렸을 경우
+        // type === "done": 모든 문제를 풀었을 시
     };
 
     return (
         <Container>
             <DragDropContext onDragEnd={onDragEnd}>
+                <Timer timeLeft={timeLeft}></Timer>
                 {/* 타임라인 카드 배치 영역 */}
                 <Wrapper>
                     <Droppable droppableId="timeline" direction="horizontal">
