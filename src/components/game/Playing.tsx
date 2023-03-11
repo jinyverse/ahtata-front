@@ -60,21 +60,23 @@ const deckDataFromServer = [
     { name: '첫번째', date: 1 },
     { name: '두번째', date: 2 },
     { name: '세번쨰', date: 3 },
-    { name: '네번째', date: 4 },
-    { name: '다섯번째', date: 5 },
-    { name: '여섯번째', date: 6 },
-    { name: '일곱번째', date: 7 },
-    { name: '여덟번째', date: 8 },
-    { name: '아홈번째', date: 9 },
-    { name: '열번째', date: 10 },
-    { name: '열한번째', date: 11 },
+    { name: '셋번쨰', date: 3 },
+    // { name: '네번째', date: 4 },
+    // { name: '다섯번째', date: 5 },
+    // { name: '여섯번째', date: 6 },
+    // { name: '일곱번째', date: 7 },
+    // { name: '여덟번째', date: 8 },
+    // { name: '아홈번째', date: 9 },
+    // { name: '열번째', date: 10 },
+    // { name: '열한번째', date: 11 },
 ];
 
 export function Playing() {
     const navigate = useNavigate();
-    const [timeLeft, setTimeLeft] = useState(10);
+    // const [timeLeft, setTimeLeft] = useState(10);
     const [playStatus, setPlayStatus] = useRecoilState(playStatusAtom);
     const [deck, setDeck] = useRecoilState(gameDeckAtom);
+    const [startedAt, _] = useState(Date.now());
     const { artist } = playStatus;
 
     // 아티스트 선택 완료 후 게임 플레이 화면 렌더링 시 동작
@@ -95,14 +97,15 @@ export function Playing() {
         setDeck(deckData);
 
         // 반환된 카드 덱 셔플하기
-        const shuffleDeck = getShuffleDeck(deckData);
+        const shuffledDeck = getShuffledDeck(deckData);
 
-        setPlayStatus(status => {
+        setPlayStatus(prev => {
             return {
-                ...status,
-                timeline: [shuffleDeck[0]], // 1장 카드 화면 배치
-                given: [shuffleDeck[1]], // 첫번째 문제 카드 부여(given에 한장 추가)
-                waitingList: shuffleDeck.slice(2),
+                ...prev,
+                status: 'playing', // status 갱신: 게임 종료
+                timeline: [shuffledDeck[0]], // 1장 카드 화면 배치
+                given: [shuffledDeck[1]], // 첫번째 문제 카드 부여(given에 한장 추가)
+                waitingList: shuffledDeck.slice(2),
             };
         });
 
@@ -124,7 +127,7 @@ export function Playing() {
     };
 
     // 카드 셔플 함수
-    const getShuffleDeck = (deck: ICardData[]) => {
+    const getShuffledDeck = (deck: ICardData[]) => {
         const newDeck = [...deck].sort(() => Math.random() - 0.5);
         return newDeck;
     };
@@ -159,84 +162,103 @@ export function Playing() {
             // timeline 영역 중 드래깅 카드가 드랍된 지점으로 카드 삽입
             destinationCardList.splice(destination?.index, 0, draggingCard);
 
-            // waiting list에서 다음 문제 카드가 없을 경우
+            // waiting list에서 다음 문제 카드가 없을 경우는?
             if (waitingCardList.length !== 0) {
                 const newGiven = waitingCardList.splice(0, 1)[0];
                 sourceCardList.splice(0, 0, newGiven);
             }
 
+            // 카드 상태 갱신
             const newPlayStatus = {
                 ...playStatus,
                 given: sourceCardList,
                 timeline: destinationCardList,
                 waitingList: waitingCardList,
             };
-
             setPlayStatus(newPlayStatus);
 
             // 드랍 후 카드 배치 정답을 확인하는 함수
-            validateCardPosition(newPlayStatus, draggingCard);
+            validateCardPosition(draggingCard, destination.index);
         }
     };
 
-    // 카드 드랍 시 실행 됨
-    useEffect(() => {
-        // 초반에 카드가 배치될 때 제외
-        if (playStatus.timeline.length < 2) return;
-
-        // 카드 배치가 올바른지 판별
-        // const isValidate = validateCardPosition();
-
-        // 올바르지 않을 경우
-        // if (!isValidate) {
-        //     setGameEnd('incorrect');
-        // }
-
-        // 올바른 경우
-        // waiting list 카드 첫번째 1장 -> given
-    }, [playStatus.timeline]);
-
     // 드랍 후 카드 배치 정답을 확인하는 함수
     const validateCardPosition = (
-        newPlayStatus: IPlayStatus,
         draggingCard: ICardData,
+        destinationIndex: number,
     ) => {
-        const nowTimeline = playStatus.timeline;
-        const nowCard = draggingCard.name;
+        const timeline = playStatus.timeline;
 
-        console.log('드래깅카드', draggingCard);
-        nowTimeline.forEach((item, index) => {
-            console.log(index);
-        });
+        // 바로 앞의 카드와 시간 비교, 시간이 같아도 정답 인정
+        const beforeCard = timeline[destinationIndex - 1];
+        if (beforeCard && beforeCard.date > draggingCard.date) {
+            return setGameEnd('incorrect');
+        }
 
-        // 1. 방금 배치한 카드 찾기: newPlayStatus draggingCard찾기
-        // newPlayStatus.timeline.filter((item) => item.name === nowCard);
-        newPlayStatus;
-        // 2. 배치 카드 앞, 뒤 카드의 날짜 찾기
-        // 3. 배치한 카드가 적당한 위치인지 판별하기
+        // 오른쪽 카드와 시간 비교
+        const afterCard = timeline[destinationIndex]; // 드랍된 카드가 갱신되기 전이라서 +1을 하지 않음, 해당 실행 컨텍스트가 모두 종료되어야 setState이 적용되기 때문
+        if (afterCard && draggingCard.date > afterCard.date) {
+            return setGameEnd('incorrect');
+        }
 
-        // const sortedTimeline = [...nowTimeline].sort((a, b) => a - b);
-        // console.log(nowTimeline, sortedTimeline);
-
-        const isValidate = true;
-
-        // 2-1. 올바른 경우: 카드 배치 성공 이펙트, 다음 카드 불러오기
-        // 2-2. 틀린 경우: 카드 배치 실패 이펙트, 게임 오버 화면 이동
-        // 3. 게임 관련 상태 업데이트(새로 주어진 카드 recoil 등록 or 게임 오버 상태 변환)
-        return isValidate;
+        // 카드 배치 성공.
+        // 1. 카드 배치 성공 이펙트
+        // 2. 다음 given 카드 제시
     };
 
-    const setGameEnd = (type: string) => {
-        console.log('game over');
+    const setGameEnd = (type: 'timeout' | 'incorrect' | 'finish') => {
+        // 카드 배치 실패한 경우 실행.
+        // 1. 카드 배치 실패 이펙트
+        console.log('game over', type);
+
+        setPlayStatus(prev => {
+            return {
+                ...prev,
+                status: 'end', // status 갱신: 게임 종료
+            };
+        });
         // type === "timeout": 타이머 모두 경과 시
         // type === "incorrect": 카드 배치를 틀렸을 경우
-        // type === "done": 모든 문제를 풀었을 시
+        // type === "finish": 모든 문제를 풀었을 시
     };
 
+    // 모든 카드 배치를 성공했을때
+    useEffect(() => {
+        const { status, given, waitingList } = playStatus;
+
+        // 게임 플레이 중이 아닐때 제외
+        if (status !== 'playing') return;
+
+        // 모든 카드가 timeline에 배치되었을 경우 게임 종료
+        if (given.length === 0 && waitingList.length === 0) {
+            setGameEnd('finish');
+        }
+    }, [playStatus.waitingList]);
+
+    // 게임 종료 시 실행
+    useEffect(() => {
+        // 게임 종료 여부 판별
+        if (playStatus.status !== 'end') return;
+
+        // 게임 경과 시간
+        const totalPlayTime = (Date.now() - startedAt) / 1000;
+        console.log('걸린 시간 = ', totalPlayTime, '초');
+
+        // 게임 결과
+        const solvedCardNum = playStatus.timeline.length;
+        console.log('총 맞힌 카드 수 = ', solvedCardNum);
+
+        reqGameResult();
+    }, [playStatus.status]);
+
+    // 게임 결과 페이지 요청, 게임 결과 서버로 전송
+    const reqGameResult = async () => {
+        navigate('/game/result/1');
+    };
     return (
         <Container>
             <DragDropContext onDragEnd={onDragEnd}>
-                <Timer timeLeft={timeLeft}></Timer>
+                {/* <Timer timeLeft={timeLeft}></Timer> */}
                 {/* 타임라인 카드 배치 영역 */}
                 <Wrapper>
                     <Droppable droppableId="timeline" direction="horizontal">

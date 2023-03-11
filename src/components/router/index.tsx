@@ -7,6 +7,7 @@ import Ranking from '@/pages/Ranking';
 import RankingSelf from '@/pages/RankingSelf';
 import CardBook from '@/pages/CardBook';
 import GamePage from '@/pages/Game';
+import GameResult from '@/pages/GameResult';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
@@ -16,6 +17,7 @@ function Router() {
             <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/game" element={<GamePage />} />
+                <Route path="/game/result/:id" element={<GameResult />} />
                 <Route path="/ranking" element={<Ranking />} />
                 <Route path="/artists" element={<Artists />} />
                 <Route path="/card-book" element={<CardBook />} />
