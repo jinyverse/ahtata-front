@@ -28,6 +28,8 @@ const colors = {
     button: {
         Main: '#3150FE',
         white: '#FFFFFF',
+        Before: '#6D5D5D',
+        Select: '#484848',
     },
     font: {
         palePuple: '#452A7C',

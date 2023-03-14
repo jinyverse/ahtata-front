@@ -26,6 +26,8 @@ declare module 'styled-components' {
         button: {
             Main: string;
             white: string;
+            Before: string;
+            Select: string;
         };
         font: {
             palePuple: string;

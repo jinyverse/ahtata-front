@@ -97,9 +97,16 @@ const InnerHexagon = styled.div<HexProps>`
 `;
 const LetterDiv = styled.div`
     z-index: 100;
-    font-size: 3.5em;
+    font-size: 2em;
     transform: rotate(150deg);
     color: ${({ theme }) => theme.font.white};
+    :hover {
+        font-size: 3em;
+        transition: all 0.3s ease-in-out;
+    }
+    :not(:hover) {
+        transition: all 0.3s ease-in-out;
+    }
 `;
 
 function Hex() {
