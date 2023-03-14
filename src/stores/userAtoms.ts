@@ -8,16 +8,22 @@ export const themeModeAtom = atom({
 export const userInfo = atom({
     key: 'userInfo',
     default: {
-        id: null,
-        name: null,
-        point: null,
+        id: '',
+        name: '',
+        point: '',
         profileImage: '',
-    },
+    } as IUserInfo,
 });
 
 interface IUserState {
     isLoggedIn: boolean;
     isGameMode: boolean;
+}
+interface IUserInfo {
+    id: string;
+    name: string;
+    point: string;
+    profileImage: string;
 }
 
 export const userState = atom({

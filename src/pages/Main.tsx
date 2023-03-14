@@ -1,25 +1,39 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { userState } from '@/stores/userAtoms';
+import { userState, userInfo } from '@/stores/userAtoms';
+import {
+    RecoilRoot,
+    atom,
+    selector,
+    useRecoilState,
+    useRecoilValue,
+} from 'recoil';
 import Layout from '@/components/common/Layout';
 import { NormalButton } from '@/components/common/Button';
 import Loading from '@/components/common/Loading';
 import Timer from '@/components/common/Timer';
 import Hex from '@/components/common/Hex';
 import Deck from '@/components/common/Deck';
+import Header from '@/components/common/Header';
 
 const Container = styled.div`
     width: 90%;
     padding: 20px;
     height: 300vh;
 `;
-
+const userInfoData = {
+    id: '1111',
+    name: 'yoon',
+    point: '1000',
+    profileImage: 'url',
+};
 function Main() {
     const [status, setStatus] = useRecoilState(userState);
     const [loading, setLoading] = useState(true);
     const [timeLeft, setTimeLeft] = useState(10);
+    const [myInfo, setmyInfo] = useRecoilState(userInfo);
+    // const [myInfo, setmyInfo] = useState([]);
 
     const onClickGamePlay = () => {
         setStatus(prev => ({ ...prev, isGameMode: true }));
@@ -34,10 +48,15 @@ function Main() {
     // if (loading) {
     //     return <Loading />;
     // }
+    useEffect(() => {
+        setmyInfo(userInfoData);
+        console.log(myInfo);
+    }, []);
 
     return (
         <Layout>
             <Container>
+                <Header nickname={myInfo.name} point={myInfo.point}></Header>
                 <Link to="/game" onClick={onClickGamePlay}>
                     <NormalButton>
                         테스트용 게임 플레이 페이지 이동
