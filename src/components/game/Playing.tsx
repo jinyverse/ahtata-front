@@ -7,7 +7,8 @@ import { DroppableBoard } from '@/components/dnd';
 import DragabbleCard from '@/components/dnd/DragabbleCard';
 import { useNavigate } from 'react-router-dom';
 import { ICardData, IPlayStatus } from '@/types/game.type';
-import Timer from '@/components/common/Timer';
+// import Timer from '@/components/common/Timer';
+import { INIT_PLAY_STATUS } from '@/stores/gameAtom';
 
 const appearAnimation = keyframes`
     from {
@@ -253,12 +254,16 @@ export function Playing() {
 
     // 게임 결과 페이지 요청, 게임 결과 서버로 전송
     const reqGameResult = async () => {
+        // axios.post(...)
+        // game status 초기화
+        setPlayStatus(INIT_PLAY_STATUS);
+
         navigate('/game/result/1');
     };
+
     return (
         <Container>
             <DragDropContext onDragEnd={onDragEnd}>
-                {/* <Timer timeLeft={timeLeft}></Timer> */}
                 {/* 타임라인 카드 배치 영역 */}
                 <Wrapper>
                     <Droppable droppableId="timeline" direction="horizontal">
