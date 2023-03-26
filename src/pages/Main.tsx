@@ -15,19 +15,16 @@ import Loading from '@/components/common/Loading';
 import Timer from '@/components/common/Timer';
 import Hex from '@/components/common/Hex';
 import Deck from '@/components/common/Deck';
-import Header from '@/components/common/Header';
 
-const Container = styled.div`
-    width: 90%;
-    padding: 20px;
-    height: 300vh;
-`;
+const Container = styled.div``;
+
 const userInfoData = {
     id: '1111',
     name: 'yoon',
     point: '1000',
     profileImage: 'url',
 };
+
 function Main() {
     const [status, setStatus] = useRecoilState(userState);
     const [loading, setLoading] = useState(true);
@@ -56,14 +53,13 @@ function Main() {
     return (
         <Layout>
             <Container>
-                <Header nickname={myInfo.name} point={myInfo.point}></Header>
-                <Link to="/game" onClick={onClickGamePlay}>
+                {/* <Link to="/game" onClick={onClickGamePlay}>
                     <NormalButton>
                         테스트용 게임 플레이 페이지 이동
                     </NormalButton>
-                </Link>
-                <Timer timeLeft={timeLeft}></Timer>
-                <Deck
+                </Link> */}
+                {/* <Timer timeLeft={timeLeft}></Timer> */}
+                {/* <Deck
                     width={'100%'}
                     height={'100%'}
                     backgroundImage={
@@ -71,8 +67,8 @@ function Main() {
                     }
                     content={'대충가수이름'}
                     ranking={'1위'}
-                ></Deck>
-                <Hex></Hex>
+                ></Deck> */}
+                {/* <Hex text="TESTING" /> */}
             </Container>
         </Layout>
     );

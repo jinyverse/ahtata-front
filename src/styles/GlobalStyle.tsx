@@ -1,6 +1,55 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+
+@font-face {
+	font-family: "esamanruBold";
+	src: url("./assets/fonts/esamanruBold.ttf");
+}
+
+@font-face {
+  font-family: 'esamanru';
+  src: url('./assets/fonts/esamanruMedium.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'esamanruLight';
+  src: url('./assets/fonts/esamanruLight.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeoBold';
+  src: url('./assets/fonts/SpoqaHanSansNeoBold.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeoLight';
+  src: url('./assets/fonts/SpoqaHanSansNeoLight.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeoMedium';
+  src: url('./assets/fonts/SpoqaHanSansNeoMedium.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeoRegular';
+  src: url('./assets/fonts/SpoqaHanSansNeoRegular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -48,7 +97,7 @@ table {
   box-sizing: border-box;
 }
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "esamanru";
   transition: all 0.4s ease-in-out;
 }
 a {

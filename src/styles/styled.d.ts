@@ -2,10 +2,6 @@ import 'styled-components';
 
 declare module 'styled-components' {
     export interface DefaultTheme {
-        family: {
-            spoqaHanSans: string;
-            esamanru: string;
-        };
         size: {
             h0: string;
             h1: string;

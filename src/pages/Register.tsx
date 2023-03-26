@@ -75,7 +75,7 @@ function Register() {
         <Layout hasNotNav={true}>
             <Container>
                 <form onSubmit={handleSubmit(onValid)}>
-                    <Hex></Hex>
+                    {/* <Hex></Hex> */}
                     <H2>닉네임</H2>
                     <Input
                         type="text"

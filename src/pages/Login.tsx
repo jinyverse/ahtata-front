@@ -6,11 +6,8 @@ import { useForm } from 'react-hook-form';
 import Layout from '@/components/common/Layout';
 import Hex from '@/components/common/Hex';
 import { NormalButton } from '@/components/common/Button';
-const Container = styled.div`
-    width: 90%;
-    padding: 20px;
-    height: 100vh;
-`;
+
+const Container = styled.div``;
 
 const H2 = styled.h2`
     color: white;
@@ -19,9 +16,9 @@ const H2 = styled.h2`
 const Input = styled.input`
     color: white;
     background-color: #0e0328;
-    border: 0 none; 
-    border-bottom: 1px solid white ;
-    width 100%;
+    border: 0 none;
+    border-bottom: 1px solid white;
+    width: 100%;
     height: 30px;
     margin: 20px 0;
 `;
