@@ -1,14 +1,8 @@
 import styled from 'styled-components';
 
-interface HexProps {
-    width: string;
-    height: string;
-}
-
 const HexagonContainer = styled.div`
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     width: 100%;
 `;
 
@@ -95,26 +89,35 @@ const InnerHexagon = styled.div<HexProps>`
         transform: rotate(-120deg);
     }
 `;
+
 const LetterDiv = styled.div`
     z-index: 100;
     font-size: 2em;
     transform: rotate(150deg);
     color: ${({ theme }) => theme.font.white};
-    :hover {
+    /* :hover {
         font-size: 3em;
         transition: all 0.3s ease-in-out;
     }
     :not(:hover) {
         transition: all 0.3s ease-in-out;
-    }
+    } */
 `;
 
-function Hex() {
+interface HexProps {
+    width?: string;
+    height?: string;
+    size?: number;
+    text?: string;
+    image?: string;
+}
+
+function Hex({ width, height, size = 1, text, image }: HexProps) {
     return (
         <HexagonContainer>
-            <Hexagon width={'8em'} height={'13em'}>
-                <InnerHexagon width={'7em'} height={'12em'}>
-                    <LetterDiv>ATATA</LetterDiv>
+            <Hexagon width={`${size * 7}em`} height={`${size * 12}em`}>
+                <InnerHexagon width={`${size * 6}em`} height={`${size * 11}em`}>
+                    <LetterDiv>{text}</LetterDiv>
                 </InnerHexagon>
                 {/* InnerHexagon을 Hexagon 안에 위치시킴 */}
             </Hexagon>

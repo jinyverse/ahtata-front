@@ -1,10 +1,6 @@
 import { DefaultTheme } from 'styled-components';
 
 const fonts = {
-    family: {
-        spoqaHanSans: `'Noto Sans KR', sans-serif`,
-        esamanru: `'Merriweather', serif`,
-    },
     size: {
         h0: '32px',
         h1: '24px',

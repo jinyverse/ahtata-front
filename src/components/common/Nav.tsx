@@ -5,14 +5,13 @@ import Variant8 from '@/assets/img/Variant8.svg';
 import MusicSquareSearch from '@/assets/img/musicsquaresearch.svg';
 import UseRoctagon from '@/assets/img/useroctagon.svg';
 import { Link } from 'react-router-dom';
-// import Hex from './Hex';
 
 const Container = styled.div`
-    position: fixed;
+    position: absolute;
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 100px; // Nav height 컨트롤
+    height: 100px; // Nav height
     box-sizing: border-box;
     bottom: 0;
     left: 0;
@@ -55,7 +54,7 @@ const Circle = styled.div`
     align-items: center;
 `;
 
-function Nav() {
+function Nav({ isLoggedIn }: { isLoggedIn: boolean }) {
     return (
         <Container>
             <Wrapper>
@@ -70,10 +69,6 @@ function Nav() {
                             <img src={Variant8} alt="" />
                         </Icon>
                     </Link>
-                    <Circle>
-                        <GoPlus size="50%" color="white" />
-                        {/* <Hex></Hex> */}
-                    </Circle>
                     <Link to="/card-book">
                         <Icon>
                             <img src={MusicSquareSearch} alt="" />
