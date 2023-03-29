@@ -45,7 +45,12 @@ const BackgroundStars = styled.img`
     width: 100%;
 `;
 
-function Layout({ children, hasNotNav, hasBackgroundStars }: ILayoutProps) {
+function Layout({
+    children,
+    hasNotNav,
+    hasBackgroundStars,
+    isRootPage,
+}: ILayoutProps) {
     const { isLoggedIn } = useRecoilValue(userState);
     return (
         <Container>
@@ -57,6 +62,7 @@ function Layout({ children, hasNotNav, hasBackgroundStars }: ILayoutProps) {
                     isLoggedIn={isLoggedIn}
                     nickname="닉네임"
                     point={1}
+                    isRootPage={isRootPage}
                 ></Header>
                 <MainContents>{children}</MainContents>
                 {!hasNotNav && <Nav isLoggedIn />}

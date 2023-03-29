@@ -51,7 +51,7 @@ function Main() {
     }, []);
 
     return (
-        <Layout>
+        <Layout isRootPage>
             <Container>
                 {/* <Link to="/game" onClick={onClickGamePlay}>
                     <NormalButton>
