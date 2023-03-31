@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/stores/userAtoms';
 import logincurve from '@/assets/img/logincurve.svg';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,17 +43,16 @@ const Point = styled.div`
     font-size: 10px;
 `;
 
-interface HeaderProps {
-    id?: string;
-    isLoggedIn: boolean;
-    nickname: string;
-    point: number;
-    profileImage?: string;
+interface IHeaderProps {
+    headerType?: string;
 }
 
-function Header(props: HeaderProps) {
-    const { isLoggedIn } = props;
+function Header({ headerType }: IHeaderProps) {
+    const { isLoggedIn } = useRecoilValue(userState);
     const navigate = useNavigate();
+
+    // No header
+    if (!headerType) return null;
 
     return (
         <Container isLoggedIn>
@@ -65,7 +66,7 @@ function Header(props: HeaderProps) {
                     </WrapperRight>
                     <WrapperLeft>
                         <div>1231233</div>
-                        <div>2{props.point}p</div>
+                        <div>2123p</div>
                     </WrapperLeft>
                 </>
             ) : (
