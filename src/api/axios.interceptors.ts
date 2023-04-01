@@ -9,7 +9,7 @@ import axios, {
 // 모든 axios 요청에 대해 공통된 설정(인증 정보나 헤더 정보 등) 적용 가능
 // 요청이 실패했을 때 공통적인 에러 처리 수행
 
-const baseURL = 'https://atata.jinytree.shop';
+const baseURL = process.env.REACT_APP_BASE_URL;
 
 const instance: AxiosInstance = axios.create({
     baseURL,
