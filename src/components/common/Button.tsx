@@ -1,5 +1,30 @@
 import styled from 'styled-components';
 
+export const LargePrimaryButton = styled.button<{
+    buttonType?: 'DEFAULT' | 'ON' | 'DISABLED';
+}>`
+    width: 100%;
+    height: 60px;
+    border: transparent;
+    border-radius: 30px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-family: 'esamanru';
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: ${({ buttonType }) =>
+        buttonType !== 'DISABLED' ? '#ffffff' : '#A5A5A5'};
+    // Default
+    background: #5f03ff;
+    // On
+    background: ${({ buttonType }) => (buttonType === 'ON' ? '#304ffe' : '')};
+    // Disabled
+    background: ${({ buttonType }) =>
+        buttonType === 'DISABLED' ? '#F0F0F0' : ''};
+`;
+
 export const NormalButton = styled.button`
     display: flex;
     flex-direction: row;
