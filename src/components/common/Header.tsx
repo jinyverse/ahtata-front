@@ -27,7 +27,6 @@ const Wrapper = styled.div`
 const WrapperRight = styled(Wrapper)`
     right: 0;
     align-items: center;
-    cursor: pointer;
     span {
         margin: 0 5px;
     }
@@ -44,6 +43,10 @@ const Button = styled.a`
     align-items: center;
     margin: 0 5px;
     cursor: pointer;
+    transition: 0.05s ease-in-out;
+    :hover {
+        scale: 1.05;
+    }
 `;
 
 const Nickname = styled.div`
@@ -55,33 +58,30 @@ const Point = styled.div`
     font-size: 10px;
 `;
 
-
 interface IHeaderProps {
+    isRootPage?: boolean;
     headerType?: string;
 }
 
-function Header({ headerType }: IHeaderProps) {
+function Header({ isRootPage, headerType }: IHeaderProps) {
     const { isLoggedIn } = useRecoilValue(userState);
+    // const isLoggedIn = true;
+
     const navigate = useNavigate();
 
-    // No header
-    if (!headerType) return null;
+    if (headerType) return null;
 
     return (
         <Container>
             {/* 비로그인 & 루트 페이지 */}
             {!isLoggedIn && isRootPage && (
                 <>
-                    <WrapperRight onClick={() => navigate('/login')}>
-                        <Button>
+                    <WrapperRight>
+                        <Button onClick={() => navigate('/sign')}>
                             <img src={logincurve} alt="login-img" />
                             <span>login</span>
                         </Button>
                     </WrapperRight>
-                    <WrapperLeft>
-                        <div>1231233</div>
-                        <div>2123p</div>
-                    </WrapperLeft>
                 </>
             )}
             {/* 비로그인 & 서브 페이지 */}
@@ -89,7 +89,7 @@ function Header({ headerType }: IHeaderProps) {
                 <>
                     <WrapperLeft>
                         <Button onClick={() => navigate(-1)}>
-                            <IoIosArrowBack />
+                            <IoIosArrowBack size={30} />
                         </Button>
                     </WrapperLeft>
                 </>

@@ -31,9 +31,9 @@ const Wrapper = styled.div`
 const MainContents = styled.div`
     position: relative;
     width: 90%;
+    height: calc(100vh - 60px);
     top: 60px;
     padding: 20px;
-    height: 300vh;
 `;
 
 const BackgroundStars = styled.img`
@@ -47,6 +47,7 @@ function Layout({
     children,
     hasNotNav,
     hasBackgroundStars,
+    isRootPage,
     headerType,
 }: ILayoutProps) {
     return (
@@ -55,9 +56,9 @@ function Layout({
                 {hasBackgroundStars && (
                     <BackgroundStars src={backgroundStars} />
                 )}
-                <Header headerType={headerType} />
+                <Header headerType={headerType} isRootPage={isRootPage} />
                 <MainContents>{children}</MainContents>
-                {!hasNotNav && <Nav isLoggedIn />}
+                {!hasNotNav && <Nav />}
             </Wrapper>
         </Container>
     );

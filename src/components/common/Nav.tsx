@@ -55,7 +55,7 @@ const Circle = styled.div`
     align-items: center;
 `;
 
-function Nav({ isLoggedIn }: { isLoggedIn: boolean }) {
+function Nav() {
     return (
         <Container>
             <Wrapper>
