@@ -1,35 +1,14 @@
 import { atom } from 'recoil';
+import { IUserState } from '@/types/user.type';
 
-export const themeModeAtom = atom({
-    key: 'isDarkMode',
-    default: true,
-});
-
-export const userInfo = atom({
-    key: 'userInfo',
-    default: {
-        id: '',
-        name: '',
-        point: '',
-        profileImage: '',
-    } as IUserInfo,
-});
-
-interface IUserState {
-    isLoggedIn: boolean;
-    isGameMode: boolean;
-}
-interface IUserInfo {
-    id: string;
-    name: string;
-    point: string;
-    profileImage: string;
-}
-
-export const userState = atom({
+export const userState = atom<IUserState>({
     key: 'userState',
     default: {
         isLoggedIn: false,
         isGameMode: false,
-    } as IUserState,
+        id: '',
+        name: '',
+        point: '',
+        profileImage: '',
+    },
 });

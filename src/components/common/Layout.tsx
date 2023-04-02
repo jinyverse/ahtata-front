@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 import Nav from '@/components/common/Nav';
 import Header from '@/components/common/Header';
-import { userState } from '@/stores/userAtoms';
 import backgroundImage from '@/assets/img/backgroundImage.png';
 import backgroundStars from '@/assets/img/backgroundStars.png';
 import { ILayoutProps } from '@/types/common.type';
@@ -49,21 +47,15 @@ function Layout({
     children,
     hasNotNav,
     hasBackgroundStars,
-    isRootPage,
+    headerType,
 }: ILayoutProps) {
-    const { isLoggedIn } = useRecoilValue(userState);
     return (
         <Container>
             <Wrapper>
                 {hasBackgroundStars && (
                     <BackgroundStars src={backgroundStars} />
                 )}
-                <Header
-                    isLoggedIn={isLoggedIn}
-                    nickname="닉네임"
-                    point={1}
-                    isRootPage={isRootPage}
-                ></Header>
+                <Header headerType={headerType} />
                 <MainContents>{children}</MainContents>
                 {!hasNotNav && <Nav isLoggedIn />}
             </Wrapper>

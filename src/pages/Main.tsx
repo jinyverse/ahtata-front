@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { userState, userInfo } from '@/stores/userAtoms';
+import { userState } from '@/stores/userAtoms';
 import {
     RecoilRoot,
     atom,
@@ -10,15 +10,15 @@ import {
     useRecoilValue,
 } from 'recoil';
 import Layout from '@/components/common/Layout';
-import { NormalButton } from '@/components/common/Button';
-import Loading from '@/components/common/Loading';
-import Timer from '@/components/common/Timer';
-import Hex from '@/components/common/Hex';
-import Deck from '@/components/common/Deck';
+// import { NormalButton } from '@/components/common/Button';
+// import Loading from '@/components/common/Loading';
+// import Timer from '@/components/common/Timer';
+// import Hex from '@/components/common/Hex';
+// import Deck from '@/components/common/Deck';
 
 const Container = styled.div``;
 
-const userInfoData = {
+const fakeUserInfo = {
     id: '1111',
     name: 'yoon',
     point: '1000',
@@ -29,29 +29,13 @@ function Main() {
     const [status, setStatus] = useRecoilState(userState);
     const [loading, setLoading] = useState(true);
     const [timeLeft, setTimeLeft] = useState(10);
-    const [myInfo, setmyInfo] = useRecoilState(userInfo);
-    // const [myInfo, setmyInfo] = useState([]);
 
     const onClickGamePlay = () => {
         setStatus(prev => ({ ...prev, isGameMode: true }));
     };
 
-    // useEffect(() => {
-    //     // 데이터를 불러오는 등의 비동기 작업이 완료된 후에 setLoading(false)를 호출합니다.
-    //     setTimeout(() => {
-    //         setLoading(false);
-    //     }, 2000);
-    // }, []);
-    // if (loading) {
-    //     return <Loading />;
-    // }
-    useEffect(() => {
-        setmyInfo(userInfoData);
-        console.log(myInfo);
-    }, []);
-
     return (
-        <Layout isRootPage>
+        <Layout hasBackgroundStars>
             <Container>
                 {/* <Link to="/game" onClick={onClickGamePlay}>
                     <NormalButton>
