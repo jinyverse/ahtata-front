@@ -3,12 +3,13 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '@/stores/userAtoms';
 import logincurve from '@/assets/img/logincurve.svg';
 import { useNavigate } from 'react-router-dom';
+import { IoIosArrowBack } from 'react-icons/io';
 
-const Container = styled.div<{ isLoggedIn: boolean }>`
+const Container = styled.div`
     position: absolute;
     display: flex;
     justify-content: space-between;
-    flex-direction: row-reverse;
+    /* flex-direction: row-reverse; */
     width: 100%;
     height: 60px;
     padding: 0 20px;
@@ -18,10 +19,13 @@ const Container = styled.div<{ isLoggedIn: boolean }>`
 `;
 
 const Wrapper = styled.div`
+    position: absolute;
     display: flex;
+    padding: 20px 10px;
 `;
 
 const WrapperRight = styled(Wrapper)`
+    right: 0;
     align-items: center;
     cursor: pointer;
     span {
@@ -30,8 +34,16 @@ const WrapperRight = styled(Wrapper)`
 `;
 
 const WrapperLeft = styled(Wrapper)`
+    left: 0;
     justify-content: space-evenly;
     flex-direction: column;
+`;
+
+const Button = styled.a`
+    display: flex;
+    align-items: center;
+    margin: 0 5px;
+    cursor: pointer;
 `;
 
 const Nickname = styled.div`
@@ -42,6 +54,7 @@ const Nickname = styled.div`
 const Point = styled.div`
     font-size: 10px;
 `;
+
 
 interface IHeaderProps {
     headerType?: string;
@@ -55,30 +68,37 @@ function Header({ headerType }: IHeaderProps) {
     if (!headerType) return null;
 
     return (
-        <Container isLoggedIn>
-            {isLoggedIn ? (
+        <Container>
+            {/* 비로그인 & 루트 페이지 */}
+            {!isLoggedIn && isRootPage && (
                 <>
                     <WrapperRight onClick={() => navigate('/login')}>
-                        <span>
+                        <Button>
                             <img src={logincurve} alt="login-img" />
-                        </span>
-                        <span>login</span>
+                            <span>login</span>
+                        </Button>
                     </WrapperRight>
                     <WrapperLeft>
                         <div>1231233</div>
                         <div>2123p</div>
                     </WrapperLeft>
                 </>
-            ) : (
+            )}
+            {/* 비로그인 & 서브 페이지 */}
+            {!isLoggedIn && !isRootPage && (
                 <>
-                    <WrapperRight onClick={() => navigate('/login')}>
-                        <span>
-                            <img src={logincurve} alt="login-img" />
-                        </span>
-                        <span>login</span>
-                    </WrapperRight>
+                    <WrapperLeft>
+                        <Button onClick={() => navigate(-1)}>
+                            <IoIosArrowBack />
+                        </Button>
+                    </WrapperLeft>
                 </>
             )}
+            {/* 로그인 & 루트 페이지 */}
+            {isLoggedIn && isRootPage}
+            {/* 로그인 & 서브 페이지 */}
+            {isLoggedIn && !isRootPage}
+
             {/* <Nickname>{props.nickname}</Nickname> */}
         </Container>
     );

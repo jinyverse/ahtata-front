@@ -42,6 +42,7 @@ const Icon = styled.div`
     width: 35px;
     height: 35px;
 `;
+
 const Circle = styled.div`
     position: relative;
     top: -60px;
