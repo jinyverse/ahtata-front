@@ -31,7 +31,7 @@ const Wrapper = styled.div`
 const MainContents = styled.div`
     position: relative;
     width: 90%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 160px);
     top: 60px;
     padding: 20px;
 `;

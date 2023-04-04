@@ -26,7 +26,7 @@ const Image = styled.img`
     margin-bottom: 50px;
 `;
 
-function SignMain() {
+function SignUp() {
     const navigate = useNavigate();
     return (
         <Layout hasBackgroundStars hasNotNav>
@@ -35,22 +35,11 @@ function SignMain() {
                     <Image src={mainLogo} alt="game-start-button" />
                 </Wrapper>
                 <Wrapper>
-                    <LargePrimaryButton
-                        onClick={() => navigate('/sign-in')}
-                        buttonType="ON"
-                    >
-                        로그인
-                    </LargePrimaryButton>
-                    <LargePrimaryButton
-                        onClick={() => navigate('/sign-up')}
-                        buttonType="DEFAULT"
-                    >
-                        회원가입
-                    </LargePrimaryButton>
+                    <input type="text" />
                 </Wrapper>
             </Container>
         </Layout>
     );
 }
 
-export default SignMain;
+export default SignUp;

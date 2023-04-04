@@ -10,6 +10,8 @@ import GamePage from '@/pages/Game';
 import ArtistList from '@/pages/ArtistList';
 import GameResult from '@/pages/GameResult';
 import SignMain from '@/pages/SignMain';
+import SignIn from '@/pages/SignIn';
+import SignUp from '@/pages/SignUp';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
@@ -32,8 +34,8 @@ function Router() {
                 {/* 로그인 시 접근이 불가능한 페이지 */}
                 <Route element={<PublicRoute />}>
                     <Route path="/sign" element={<SignMain />} />
-                    <Route path="/sign-in" element={<Login />} />
-                    <Route path="/sign-up" element={<Register />} />
+                    <Route path="/sign-in" element={<SignIn />} />
+                    <Route path="/sign-up" element={<SignUp />} />
                 </Route>
             </Routes>
         </BrowserRouter>
