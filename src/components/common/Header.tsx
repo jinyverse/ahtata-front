@@ -77,7 +77,7 @@ function Header({ isRootPage, headerType }: IHeaderProps) {
             {!isLoggedIn && isRootPage && (
                 <>
                     <WrapperRight>
-                        <Button onClick={() => navigate('/sign')}>
+                        <Button onClick={() => navigate('/sign-in')}>
                             <img src={logincurve} alt="login-img" />
                             <span>login</span>
                         </Button>

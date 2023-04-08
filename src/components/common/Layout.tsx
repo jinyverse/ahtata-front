@@ -7,8 +7,11 @@ import { ILayoutProps } from '@/types/common.type';
 
 const Container = styled.div`
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: url(${backgroundImage});
     background-size: cover;
     background-repeat: no-repeat;
@@ -19,7 +22,8 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 375px;
+    min-width: 375px;
+    max-height: 860px;
     height: 100vh;
     margin: 0px auto;
     padding: 0;

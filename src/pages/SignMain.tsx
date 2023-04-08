@@ -22,7 +22,8 @@ const Wrapper = styled.div`
 `;
 
 const Image = styled.img`
-    width: 50%;
+    width: 40%;
+    padding-top: 80px;
     margin-bottom: 50px;
 `;
 

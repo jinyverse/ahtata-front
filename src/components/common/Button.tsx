@@ -10,6 +10,7 @@ export const LargePrimaryButton = styled.button<{
     margin: 8px 0;
     box-sizing: border-box;
     font-family: 'esamanru';
+    font-size: 15px;
     cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
