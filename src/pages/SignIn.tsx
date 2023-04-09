@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import Layout from '@/components/common/Layout';
 import { useNavigate } from 'react-router-dom';
-import { LargePrimaryButton } from '@/components/common/Button';
-import mainLogo from '@/assets/img/mainLogo.svg';
-import axios from 'axios';
+import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import Layout from '@/components/common/Layout';
+import { LargePrimaryButton } from '@/components/common/Button';
+import { SignFormData } from '@/types/user.type';
+import mainLogo from '@/assets/img/mainLogo.svg';
+import { submitSignIn } from '@/services/userService';
 
 const Container = styled.div`
     height: 100%;
@@ -64,11 +64,6 @@ const SignUpButton = styled.span`
     cursor: pointer;
 `;
 
-interface SignFormData {
-    nickname: string;
-    password: string;
-}
-
 function SignIn() {
     const navigate = useNavigate();
     const {
@@ -80,9 +75,10 @@ function SignIn() {
 
     const onValid = async (data: SignFormData) => {
         try {
-            const res = await axios.post('/*');
+            const res = await submitSignIn(data);
             console.log(res);
         } catch (e: any) {
+            alert(e.message);
             console.log(e);
         }
     };

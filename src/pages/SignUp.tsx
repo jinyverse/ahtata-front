@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import Layout from '@/components/common/Layout';
 import { useNavigate } from 'react-router-dom';
-import { LargePrimaryButton } from '@/components/common/Button';
-import mainLogo from '@/assets/img/mainLogo.svg';
-import axios from 'axios';
+import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import Layout from '@/components/common/Layout';
+import { LargePrimaryButton } from '@/components/common/Button';
+import { SignFormData } from '@/types/user.type';
+import mainLogo from '@/assets/img/mainLogo.svg';
+import { submitSignUp } from '@/services/userService';
 
 const Container = styled.div`
     height: 100%;
@@ -34,6 +34,7 @@ const Form = styled.form`
 
 const InputTitle = styled.h2`
     color: white;
+    margin-top: 20px;
 `;
 
 const Input = styled.input`
@@ -43,12 +44,17 @@ const Input = styled.input`
     border-bottom: 1px solid white;
     width: 100%;
     height: 30px;
-    margin-bottom: 20px;
     -webkit-appearance: none;
     :focus-visible {
         outline: none;
         border-radius: none;
     }
+`;
+
+const InputErrorMsg = styled.p`
+    font-size: 14px;
+    color: #d82e34;
+    margin-top: 15px;
 `;
 
 const SignInButton = styled.span`
@@ -58,17 +64,24 @@ const SignInButton = styled.span`
     cursor: pointer;
 `;
 
-interface FormData {
-    nickname: string;
-    password: string;
-}
-
-function SignIn() {
+function SignUp() {
     const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setError,
+    } = useForm<SignFormData>();
 
-    function handleSignUp() {
-        console.log('register');
-    }
+    const onValid = async (data: SignFormData) => {
+        try {
+            await submitSignUp(data);
+            navigate('/');
+        } catch (e: any) {
+            alert(e.message);
+            console.log(e);
+        }
+    };
 
     return (
         <Layout hasBackgroundStars>
@@ -77,15 +90,46 @@ function SignIn() {
                     <Image src={mainLogo} alt="game-start-button" />
                 </Wrapper>
                 <Wrapper>
-                    <Form>
+                    <Form onSubmit={handleSubmit(onValid)}>
                         <InputTitle>닉네임</InputTitle>
-                        <Input type="text" />
+                        <Input
+                            type="text"
+                            {...register('nickname', {
+                                required: '닉네임을 입력해주세요.',
+                                minLength: {
+                                    value: 2,
+                                    message: '닉네임은 최소 2글자 이상입니다.',
+                                },
+                                maxLength: {
+                                    value: 20,
+                                    message:
+                                        '닉네임은 최대 20글자까지 가능합니다.',
+                                },
+                            })}
+                        />
+                        <InputErrorMsg className="text-danger">
+                            {errors?.nickname?.message}
+                        </InputErrorMsg>
                         <InputTitle>비밀번호</InputTitle>
-                        <Input type="password" />
-                        <LargePrimaryButton
-                            onClick={handleSignUp}
-                            buttonType="ON"
-                        >
+                        <Input
+                            type="password"
+                            {...register('password', {
+                                required: '비밀번호를 입력해주세요.',
+                                minLength: {
+                                    value: 1,
+                                    message:
+                                        '비밀번호는 최소 1자리 이상 입력해주세요',
+                                },
+                                maxLength: {
+                                    value: 200,
+                                    message: '비밀번호를 다시 확인해주세요.',
+                                },
+                            })}
+                        />
+                        <InputErrorMsg className="text-danger">
+                            {errors?.password?.message}
+                        </InputErrorMsg>
+                        <LargePrimaryButton type="submit" buttonType="ON">
                             회원가입
                         </LargePrimaryButton>
                     </Form>
@@ -98,4 +142,4 @@ function SignIn() {
     );
 }
 
-export default SignIn;
+export default SignUp;

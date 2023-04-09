@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from '@/pages/Main';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
 import Artists from '@/pages/Artists';
 import Ranking from '@/pages/Ranking';
 import RankingSelf from '@/pages/RankingSelf';
@@ -9,7 +7,6 @@ import CardBook from '@/pages/CardBook';
 import GamePage from '@/pages/Game';
 import ArtistList from '@/pages/ArtistList';
 import GameResult from '@/pages/GameResult';
-import SignMain from '@/pages/SignMain';
 import SignIn from '@/pages/SignIn';
 import SignUp from '@/pages/SignUp';
 import { PrivateRoute } from './PrivateRoute';
@@ -33,7 +30,6 @@ function Router() {
                 </Route>
                 {/* 로그인 시 접근이 불가능한 페이지 */}
                 <Route element={<PublicRoute />}>
-                    <Route path="/sign" element={<SignMain />} />
                     <Route path="/sign-in" element={<SignIn />} />
                     <Route path="/sign-up" element={<SignUp />} />
                 </Route>

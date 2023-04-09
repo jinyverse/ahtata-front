@@ -6,3 +6,8 @@ export interface IUserState {
     point: string;
     profileImage: string;
 }
+
+export interface SignFormData {
+    nickname: string;
+    password: string;
+}
