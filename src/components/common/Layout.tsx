@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     min-width: 375px;
-    max-height: 860px;
+    max-height: 812px;
     height: 100vh;
     margin: 0px auto;
     padding: 0;
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
 const MainContents = styled.div`
     position: relative;
     width: 90%;
-    height: calc(100vh - 160px);
+    height: calc(100% - 160px);
     top: 60px;
     padding: 20px;
 `;

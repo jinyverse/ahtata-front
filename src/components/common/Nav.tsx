@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { GoPlus } from 'react-icons/go';
 import Home2 from '@/assets/img/home2.svg';
 import Variant8 from '@/assets/img/Variant8.svg';
 import MusicSquareSearch from '@/assets/img/musicsquaresearch.svg';

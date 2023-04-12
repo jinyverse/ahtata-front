@@ -74,6 +74,17 @@ function SignUp() {
     } = useForm<SignFormData>();
 
     const onValid = async (data: SignFormData) => {
+        const { password, rePassword } = data;
+
+        // 비밀번호 일치 여부 판별
+        if (password !== rePassword) {
+            setError('rePassword', {
+                message: '비밀번호가 일치하지 않습니다.',
+            });
+            return;
+        }
+
+        // 회원가입 API 요청
         try {
             await submitSignUp(data);
             navigate('/');
@@ -128,6 +139,20 @@ function SignUp() {
                         />
                         <InputErrorMsg className="text-danger">
                             {errors?.password?.message}
+                        </InputErrorMsg>
+                        <InputTitle>비밀번호 확인</InputTitle>
+                        <Input
+                            type="rePassword"
+                            {...register('rePassword', {
+                                required: '비밀번호를 입력해주세요.',
+                                maxLength: {
+                                    value: 200,
+                                    message: '비밀번호를 다시 확인해주세요.',
+                                },
+                            })}
+                        />
+                        <InputErrorMsg className="text-danger">
+                            {errors?.rePassword?.message}
                         </InputErrorMsg>
                         <LargePrimaryButton type="submit" buttonType="ON">
                             회원가입

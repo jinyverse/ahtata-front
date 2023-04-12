@@ -10,4 +10,5 @@ export interface IUserState {
 export interface SignFormData {
     nickname: string;
     password: string;
+    rePassword: string;
 }
