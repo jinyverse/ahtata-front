@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { userState } from '@/stores/userAtoms';
 import {
@@ -10,11 +10,7 @@ import {
     useRecoilValue,
 } from 'recoil';
 import Layout from '@/components/common/Layout';
-// import { NormalButton } from '@/components/common/Button';
-// import Loading from '@/components/common/Loading';
-// import Timer from '@/components/common/Timer';
 import Hex from '@/components/common/Hex';
-// import Deck from '@/components/common/Deck';
 
 import gameStartButton from '@/assets/img/gameStartButton.svg';
 
@@ -36,14 +32,24 @@ const Wrapper = styled.div`
     }
 `;
 
-const ImgWrapper = styled.div``;
-
 function Main() {
+    const navigate = useNavigate();
+    const [status, setStatus] = useRecoilState(userState);
+
+    const onClickGamePlay = () => {
+        setStatus(prev => ({ ...prev, isGameMode: true }));
+        navigate('/game');
+    };
+
     return (
         <Layout isRootPage>
             <Container>
                 <Wrapper>
-                    <img src={gameStartButton} alt="game-start-button" />
+                    <img
+                        src={gameStartButton}
+                        alt="game-start-button"
+                        onClick={onClickGamePlay}
+                    />
                 </Wrapper>
             </Container>
         </Layout>

@@ -44,9 +44,11 @@ function GamePage() {
 
     // url을 입력으로 접근하는 경우 방지
     useEffect(() => {
-        console.log(status.isGameMode);
-        // + 잘못된 경로 안내 문구 modal
-        if (status.isGameMode === false) navigate('/');
+        if (status.isGameMode === false) {
+            alert('오류가 발생했습니다.');
+            navigate('/');
+            return;
+        }
     }, []);
 
     return (
