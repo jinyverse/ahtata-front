@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import Layout from '@/components/common/Layout';
 import { Playing, CardSelect } from '@/components/game';
@@ -8,8 +8,9 @@ import { playStatusAtom } from '@/stores/gameAtom';
 
 function GamePage() {
     const navigate = useNavigate();
-    const status = useRecoilValue(userState);
-    const { artist } = useRecoilValue(playStatusAtom);
+    const [status, setStatus] = useRecoilState(userState);
+    const [playStatus, setPlayStatus] = useRecoilState(playStatusAtom);
+    const { artist } = playStatus;
 
     // 새로고침 막기 변수
     const preventClose = (e: BeforeUnloadEvent) => {
@@ -25,6 +26,8 @@ function GamePage() {
                     '변경사항이 저장되지 않을 수 있습니다. 뒤로가기를 실행하시겠습니까?',
                 )
             ) {
+                setStatus(prev => ({ ...prev, isGameMode: false }));
+                setPlayStatus(prev => ({ ...prev, artist: null }));
                 history.go(-1);
             } else {
                 history.pushState(null, '', location.href);
